@@ -18,6 +18,7 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <spring.doc.openapi-ui.version>1.6.9</spring.doc.openapi-ui.version>
     <java.version>1.8</java.version>
     <springboot.parent.version>2.7.3</springboot.parent.version>
     <mybatis.spring.boot.starter>2.1.3</mybatis.spring.boot.starter>
@@ -34,6 +35,7 @@
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-data-redis</artifactId>
     </dependency>
+    <!--上线不用热部署清除缓存-->
 <!--    <dependency>-->
 <!--      <groupId>org.springframework.boot</groupId>-->
 <!--      <artifactId>spring-boot-devtools</artifactId>-->
@@ -43,6 +45,12 @@
       <artifactId>mybatis-spring-boot-starter</artifactId>
       <version>${mybatis.spring.boot.starter}</version>
     </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <version>${spring.doc.openapi-ui.version}</version>
+    </dependency>
+
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>

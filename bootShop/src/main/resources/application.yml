@@ -7,7 +7,6 @@ mybatis:
 #    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
   type-aliases-package: cn.ljw.shop.pojo
   config-location: classpath:/config/mybatis-config.xml
-
 logging:
   level:
     sql: debug
@@ -23,4 +22,9 @@ spring:
 
 #  mvc:
 #    pathmatch:
-#      matching-strategy: ant_path_matcher
+# 接口文档
+springdoc:
+  packages-to-scan: cn.ljw.shop.controller
+  swagger-ui:
+    enabled: true
+
