@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ljw.shop.mapper.AdminInfoMapper">
+<resultMap type="AdminInfo" id="adminInfoMap">
+    <id property="id" column="id"/>
+    <result property="name" column="name"/>
+    <result property="pwd" column="pwd"/>
+    <result property="delState" column="delState"/>
+    <association property="role" column="id" select="cn.ljw.shop.mapper.RoleMapper.findRoleByAdminId"
+                 javaType="cn.ljw.shop.pojo.Role"/>
+</resultMap>
+<select id="findByNameAndPwd" parameterType="AdminInfo"
+        resultType="cn.ljw.shop.pojo.AdminInfo">
+ select  * from admin_info where name=#{name} and pwd=#{pwd}
+</select>
+    <select id="findByName" resultType="AdminInfo">
+        select  * from admin_info where name=#{name}
+    </select>
+    <select id="findAdminById" resultType="AdminInfo">
+        select * from admin_info where id=#{id}
+    </select>
+    <select id="findAll" resultType="AdminInfo">
+        select id,name,pwd,delState from admin_info
+    </select>
+    <!--条件查询管理员总数-->
+    <select id="count" parameterType="map" resultType="int">
+        select count(*) from admin_info
+<where>
+    <if test="name !=''">
+        name like '%' #{name} '%'
+    </if>
+</where>
+    </select>
+    <select id="findByPage" parameterType="map" resultMap="adminInfoMap">
+        select id,name,pwd,delState from admin_info
+        <where>
+            <if test="name !=''">
+                name like '%' #{name} '%'
+            </if>
+        </where>
+        limit #{pager.firstLimitParam},#{pager.perPageRows}
+    </select>
+    <insert id="insertAdminInfo" parameterType="AdminInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into admin_info(name,pwd) values(#{name},#{pwd})
+    </insert>
+    <update id="updateDelState" parameterType="Integer">
+        update admin_info set delState =1 where id=#{id}
+    </update>
+    <update id="updateAdminInfo" parameterType="AdminInfo">
+        update admin_info SET name=#{name}, pwd=#{pwd} where id=#{id}
+    </update>
+</mapper>

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ljw.shop.mapper.RoleMapper">
+
+    <!--    获取所有角色列表-->
+    <select id="findAllRole" resultType="cn.ljw.shop.pojo.Role">
+        SELECT * FROM role
+    </select>
+
+    <!--    根据状态获取角色列表-->
+    <select id="findRoleByDelState" parameterType="Integer" resultType="cn.ljw.shop.pojo.Role">
+        SELECT * FROM role where delState = #{delState}
+    </select>
+
+    <!--    根据角色id获取对应的功能id集合-->
+    <select id="findFunctionIdsByRid" parameterType="Integer" resultType="Integer">
+        select fid from role_functions
+        where rid = #{roleId}
+    </select>
+
+    <!-- 删除roleid下的functions -->
+    <delete id="deleteFunctionsByRoleId" parameterType="Integer">
+        delete from role_functions
+        where rid = #{roleId}
+    </delete>
+
+    <!-- 插入角色功能记录-->
+    <insert id="insertFunctionSByRoleId">
+        insert into role_functions(rid,fid) values(#{rid},#{fid})
+    </insert>
+
+    <!--    根据管理员id获取相应的角色-->
+    <select id="findRoleByAdminId" parameterType="Integer" resultType="cn.ljw.shop.pojo.Role">
+        select role.* from admin_role ar, role
+        where ar.rid = role.roleId and aid = #{adminId}
+    </select>
+
+    <!-- 更新管理员的角色 -->
+    <update id="updateRoleByAdminId">
+        UPDATE admin_role
+        set rid = #{roleId}
+        where aid = #{adminId}
+    </update>
+
+    <!--    添加管理员角色-->
+    <insert id="insertAdminRole" parameterType="map">
+        insert into admin_role (aid,rid) values(#{adminId},#{roleId})
+    </insert>
+
+    <!--    插入角色-->
+    <insert id="insertRole" parameterType="String">
+        insert into role(roleName) values(#{roleName})
+    </insert>
+
+    <!--    修改角色-->
+    <update id="updateRole" parameterType="Role">
+        UPDATE role SET roleName=#{roleName} where roleId=#{roleId}
+    </update>
+
+    <!--    根据名称获取角色对象-->
+    <select id="findByRoleName" parameterType="String" resultType="Role">
+      SELECT * FROM role
+      where
+      roleName=#{roleName}
+    </select>
+
+    <!--    根据角色id获取角色-->
+    <select id="findByRoleId" parameterType="Integer" resultType="Role">
+        SELECT * FROM role where roleId=#{roleId}
+    </select>
+
+    <!--    修改角色状态-->
+    <update id="updateDelState" parameterType="Integer">
+        UPDATE role SET delState = 1 where roleId=#{roleId}
+    </update>
+
+</mapper>

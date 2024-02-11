@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ljw.shop.mapper.GoodsInfoMapper">
+
+    <!-- 查询语句查询结果映射 -->
+    <resultMap type="GoodsInfo" id="goodsInfoMap">
+        <!-- 多对一关联映射 -->
+        <association property="category" column="cid" select="cn.ljw.shop.mapper.CategoryMapper.findById"
+                     javaType="Category"/>
+    </resultMap>
+
+    <!--    根据状态获取商品列表-->
+    <select id="findGoodsInfoByStatus" parameterType="map" resultType="cn.ljw.shop.pojo.GoodsInfo">
+        SELECT * FROM goods_info where status = #{status}
+    </select>
+
+    <!--    获取满足条件的商品总数-->
+    <select id="count" parameterType="map" resultType="int">
+        SELECT count(*) FROM goods_info where status = 1
+        <if test="name != ''">
+            and name like '%${name}%'
+        </if>
+    </select>
+
+    <!--    分页获取商品列表-->
+    <select id="findByPage" parameterType="map" resultMap="goodsInfoMap">
+        SELECT * FROM goods_info where status = 1
+        <if test="name != ''">
+            and name like '%${name}%'
+        </if>
+        limit #{pager.firstLimitParam} , #{pager.perPageRows}
+    </select>
+
+
+    <!--  插入商品-->
+    <insert id="insertGoodsInfo" parameterType="cn.ljw.shop.pojo.GoodsInfo">
+        insert into goods_info(code,name,cid,brand,num,price,intro)
+        values(#{code},#{name},#{cid},#{brand},#{num},#{price},#{intro})
+    </insert>
+
+    <!--    修改商品-->
+    <update id="updateGoodsInfo" parameterType="cn.ljw.shop.pojo.GoodsInfo">
+        update goods_info set code = #{code}, name = #{name}, cid = #{cid}, brand = #{brand}, num = #{num}, price = #{price}, intro = #{intro} where id = #{id}
+    </update>
+
+    <!--    根据商品id获取商品-->
+    <select id="findById" parameterType="Integer" resultType="GoodsInfo">
+        SELECT * FROM goods_info where id=#{id}
+    </select>
+
+</mapper>

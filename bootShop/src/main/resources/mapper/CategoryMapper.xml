@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.ljw.shop.mapper.CategoryMapper">
+    <select id="findCategories" parameterType="String" resultType="Category">
+        select  * from category
+        <where>
+            <if test="name !=''">
+                name like '${name}%'
+            </if>
+        </where>
+    </select>
+    <insert id="insertCategory" parameterType="String">
+        insert into category(name) values (#{name})
+    </insert>
+    <!--通过id查询-->
+    <select id="findByName" parameterType="String" resultType="Category">
+        select * from category where id=#{id}
+    </select>
+    <update id="updateCategory" parameterType="Category">
+        update category set name=#{name} where id=#{id}
+    </update>
+    <!--    根据类别id获取类别对象-->
+    <select id="findById" parameterType="Integer" resultType="Category">
+        SELECT * FROM category where id=#{id}
+    </select>
+
+</mapper>
