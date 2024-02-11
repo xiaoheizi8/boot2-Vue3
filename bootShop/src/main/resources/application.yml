@@ -8,14 +8,22 @@ mybatis:
   type-aliases-package: cn.ljw.shop.pojo
   config-location: classpath:/config/mybatis-config.xml
 logging:
+  file:
+    name: slf4j-BootShop
+    path: ./logs
+    max-size: 20MB
+    max-history: 7
   level:
-    sql: debug
+    root: info
+    cn.ljw.shop.mapper: debug
+  config: classpath:logback-spring.xml
+
 spring:
   datasource:
     #Mysql 5
     driver-class-name: com.mysql.jdbc.Driver
     password: 123
-    url: jdbc:mysql://localhost:3307/bootshop?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+    url: jdbc:mysql://localhost:3307/bootshop?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false
     username: root
   redis:
     host: 127.0.0.1
