@@ -68,4 +68,9 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
         return res1*res2;
     }
+
+    @Override
+    public int deleteOrderInfoById(int id) {
+         return orderInfoMapper.deleteOrderInfoById(id);
+    }
 }

@@ -25,7 +25,7 @@ public class OrderInfoController {
     @Resource
     private OrderInfoService orderInfoService;
     @UserLoginToken
-    @GetMapping("/shop/ordersinfos")
+    @GetMapping("/shop/orderinfos")
     public ConcurrentHashMap<String,Object>getOrderInfos(OrderInfo orderInfo,Integer curPage,Integer pageSize){
         //封装结果
         ConcurrentHashMap<String,Object> result=new ConcurrentHashMap<>();
@@ -49,9 +49,11 @@ public class OrderInfoController {
             result.put("total",totalCount);
             result.put("page",curPage);
             result.put("msg","获取订单列表成功");
+            log.info("获取数据成功");
         }else {
             result.put("code",1);
             result.put("msg","获取订单列表失败");
+            log.info("获取失败");
         }
         return result;
 
@@ -93,6 +95,36 @@ public class OrderInfoController {
     @PostMapping("/shop/commitOrder")
     public ConcurrentHashMap<String,Object>commitOrder(@RequestBody OrderInfo orderInfo){
         ConcurrentHashMap<String,Object>result=new ConcurrentHashMap<>();
+//        String str1 = "";
+//        String ordertime = orderInfo.getOrdertime();
+//        ordertime = ordertime.replace("Z", " UTC");
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS Z");
+//        SimpleDateFormat defaultFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        try {
+//            Date time = format.parse(ordertime);
+//            str1 = defaultFormat.format(time);
+//            log.info("str1 is {}", str1); // 使用log.info代替System.out.println
+//        } catch (Exception e) {
+//            log.error("An error occurred while parsing the order time", e); // 使用log.error并记录异常
+//        }
+//        orderInfo.setOrdertime(str1);
+//        try {
+//            int flag = orderInfoService.addOrder(orderInfo);
+//            if (flag > 0) {
+//                result.put("code", 0);
+//                result.put("msg", "创建订单成功");
+//                log.info("Order created successfully"); // 成功创建订单的日志信息
+//            } else {
+//                result.put("code", 1);
+//                result.put("msg", "创建订单失败");
+//                log.warn("Failed to create order"); // 失败时记录警告日志
+//            }
+//        } catch (Exception e) {
+//            result.put("code", 1);
+//            result.put("msg", "创建订单失败");
+//            log.error("An error occurred while creating the order", e); // 记录创建订单时的异常
+//        }
+//        return result;
         String str1 = "";
         String ordertime = orderInfo.getOrdertime();
         ordertime = ordertime.replace("Z", " UTC");
@@ -101,26 +133,23 @@ public class OrderInfoController {
         try {
             Date time = format.parse(ordertime);
             str1 = defaultFormat.format(time);
-            log.info("str1 is {}", str1); // 使用log.info代替System.out.println
+            System.out.println("str1 is "+str1);
         } catch (Exception e) {
-            log.error("An error occurred while parsing the order time", e); // 使用log.error并记录异常
+            e.printStackTrace();
         }
         orderInfo.setOrdertime(str1);
         try {
             int flag = orderInfoService.addOrder(orderInfo);
-            if (flag > 0) {
-                result.put("code", 0);
-                result.put("msg", "创建订单成功");
-                log.info("Order created successfully"); // 成功创建订单的日志信息
-            } else {
-                result.put("code", 1);
-                result.put("msg", "创建订单失败");
-                log.warn("Failed to create order"); // 失败时记录警告日志
+            if(flag>0){
+                result.put("code",0);
+                result.put("msg","创建订单成功");
+            }else{
+                result.put("code",1);
+                result.put("msg","创建订单失败");
             }
-        } catch (Exception e) {
-            result.put("code", 1);
-            result.put("msg", "创建订单失败");
-            log.error("An error occurred while creating the order", e); // 记录创建订单时的异常
+        }catch (Exception e){
+            result.put("code",1);
+            result.put("msg","创建订单失败");
         }
         return result;
     }

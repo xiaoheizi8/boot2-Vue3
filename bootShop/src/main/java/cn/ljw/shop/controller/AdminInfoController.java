@@ -115,6 +115,37 @@ public class AdminInfoController {
         }
         return res;
     }
+    // 根据管理员id获取管理员信息
+    @UserLoginToken
+    @GetMapping("/shop/admininfos/id/{id}")
+    public ConcurrentHashMap<String,Object> getAdminInfoById(@PathVariable int id){
+        ConcurrentHashMap<String,Object> result=new ConcurrentHashMap<>();
+        AdminInfo adminInfo = adminInfoService.getAdminById(id);
+        if(adminInfo!=null){
+            result.put("code",0);
+            result.put("adminInfo",adminInfo);
+        }else {
+            result.put("code",1);
+            result.put("msg","获取管理员失败");
+        }
+        return result;
+    }
+    // 修改管理员信息
+    @UserLoginToken
+    @PutMapping("/shop/admininfos")
+    public ConcurrentHashMap<String,Object> editAdminInfo(@RequestBody AdminInfo adminInfo){
+        ConcurrentHashMap<String,Object> result=new ConcurrentHashMap<>();
+        int flag = adminInfoService.editAdminInfo(adminInfo);
+        if(flag>0){
+            result.put("code",0);
+            result.put("msg","修改成功");
+        }else {
+            result.put("code",1);
+            result.put("msg","修改失败");
+        }
+        return result;
+    }
+
     //分配角色
         @UserLoginToken
     @PutMapping("/shop/admininfos/{adminId}/role/{roleId}")
@@ -147,6 +178,11 @@ public class AdminInfoController {
             }
             return result;
         }
+        @UserLoginToken
+    @GetMapping("/getMessage")
+    public String getMessage(){
+        return "你已通过验证";
+    }
         //判断管理员是否存在
        @UserLoginToken
     @GetMapping("/shop/admininfos/name/{name}")
@@ -163,4 +199,35 @@ public class AdminInfoController {
            }
            return result;
         }
+    // 禁用管理员
+    @UserLoginToken
+    @PutMapping("/shop/admininfos/id/{id}/delState")
+    public ConcurrentHashMap<String,Object> disableAdminInfo(@PathVariable int id){
+        ConcurrentHashMap<String,Object> result=new ConcurrentHashMap<>();
+        int flag = adminInfoService.updateDelState(id);
+        if(flag>0){
+            result.put("code",0);
+            result.put("msg","修改成功");
+        }else {
+            result.put("code",1);
+            result.put("msg","修改失败");
+        }
+        return result;
+    }
+    // 判断管理员名和id是否存在
+    @UserLoginToken
+    @GetMapping("/shop/admininfos/name/{name}/id/{id}")
+    public ConcurrentHashMap<String,Object> isExistAdminInfoName_Id(@PathVariable String name,@PathVariable int id){
+        ConcurrentHashMap<String,Object> result=new ConcurrentHashMap<>();
+        AdminInfo ai=new AdminInfo();
+        ai.setName(name);
+        AdminInfo adminInfo = adminInfoService.getByName(ai);
+        if(adminInfo!=null && adminInfo.getId()!=id ){
+            result.put("code",1);
+            result.put("msg","管理员名称已存在");
+        }else {
+            result.put("code",0);
+        }
+        return result;
+    }
 }

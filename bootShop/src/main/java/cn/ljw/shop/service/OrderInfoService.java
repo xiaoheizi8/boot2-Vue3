@@ -25,6 +25,6 @@ public interface OrderInfoService {
     List<OrderDetail> getOrderDetailByOid(int oid);
     //根据订单id删除订单记录和订单明细记录
     int deleteOrderById(int id);
-
+    int deleteOrderInfoById(int id);
 
 }

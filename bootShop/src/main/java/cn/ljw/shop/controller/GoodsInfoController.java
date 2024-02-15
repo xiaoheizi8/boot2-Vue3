@@ -59,8 +59,8 @@ public class GoodsInfoController {
     }//添加商品
     @UserLoginToken
     @PostMapping("/shop/goods")
-    public Map<String,Object> addGoods(@RequestBody GoodsInfo goodsInfo){
-        Map<String,Object> result = new HashMap<>();
+    public ConcurrentHashMap<String,Object> addGoods(@RequestBody GoodsInfo goodsInfo){
+        ConcurrentHashMap<String,Object> result = new ConcurrentHashMap<>();
         int flag=goodsInfoService.addGoodsInfo(goodsInfo);
         if(flag>0){
             result.put("code",0);
@@ -74,8 +74,8 @@ public class GoodsInfoController {
     // 根据商品id获取商品信息
     @UserLoginToken
     @GetMapping("/shop/goods/id/{id}")
-    public Map<String,Object> getGoodInfoById(@PathVariable int id){
-        Map<String,Object> result = new HashMap<>();
+    public ConcurrentHashMap<String,Object> getGoodInfoById(@PathVariable int id){
+        ConcurrentHashMap<String,Object> result = new ConcurrentHashMap<>();
         GoodsInfo goodsInfo=goodsInfoService.getById(id);
         if(goodsInfo!=null){
             result.put("code",0);
@@ -90,8 +90,8 @@ public class GoodsInfoController {
     // 修改商品
     @UserLoginToken
     @PutMapping("/shop/goods")
-    public Map<String,Object> editGoods(@RequestBody GoodsInfo goodsInfo){
-        Map<String,Object> result = new HashMap<>();
+    public ConcurrentHashMap<String,Object> editGoods(@RequestBody GoodsInfo goodsInfo){
+        ConcurrentHashMap<String,Object> result = new ConcurrentHashMap<>();
         int flag=goodsInfoService.editGoodsInfo(goodsInfo);
         if(flag>0){
             result.put("code",0);
@@ -105,8 +105,8 @@ public class GoodsInfoController {
     // 获取商品列表
     @UserLoginToken
     @GetMapping("/shop/goods/status")
-    public Map<String,Object> getValidGoodsInfo(){
-        Map<String,Object> result = new HashMap<>();
+    public ConcurrentHashMap<String,Object> getValidGoodsInfo(){
+        ConcurrentHashMap<String,Object> result = new ConcurrentHashMap<>();
         List<GoodsInfo> goodsInfos=goodsInfoService.getValidGoodsInfo();
         if(goodsInfos.size()>0){
             result.put("code",0);

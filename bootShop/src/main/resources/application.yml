@@ -23,7 +23,7 @@ spring:
     #Mysql 5
     driver-class-name: com.mysql.jdbc.Driver
     password: 123
-    url: jdbc:mysql://localhost:3307/bootshop?serverTimezone=UTC&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://localhost:3307/bootshop?serverTimezone=UTC&characterEncoding=UTF-8
     username: root
   redis:
     host: 127.0.0.1
