@@ -1,0 +1,7 @@
+FROM java:8
+#暴露端口
+EXPOSE 8888
+ADD shop-1.0-SNAPTSHOT.jar app.jar
+RUN bash -c 'touch /app.jar'
+
+ENTRYPOINT["java","-jar","/app.jar"]

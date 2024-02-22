@@ -14,6 +14,6 @@ public class CrossConfig  implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**").allowedHeaders("*")
-                .allowedMethods("*").maxAge(18000).allowedOrigins("http://localhost:8080");//运行前端跨域
+                .allowedMethods("*").maxAge(1800).allowedOrigins("http://localhost:8848");//运行前端跨域
     }
 }

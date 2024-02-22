@@ -81,40 +81,35 @@ public class AdminInfoController {
         List<TreeNode> treeNodes= JsonUtil.buildTree(nodes,0);
         res.put("code",0);
         res.put("msg","获取菜单成功");
+        log.info("获取菜单成功");
         res.put("data",treeNodes);
         return res;
 
-    }
-    @UserLoginToken
+    }    @UserLoginToken
     @GetMapping("/shop/admininfos")
-    public ConcurrentHashMap<String,Object> getAdminInfos(Integer curPage,Integer pageSize,AdminInfo adminInfo){
-        //create object res save data
-        ConcurrentHashMap<String,Object> res=new ConcurrentHashMap<>();
-        //封装查询
-        ConcurrentHashMap<String,Object>params=new ConcurrentHashMap<>();
+    public ConcurrentHashMap<String,Object> getAdmininfos(AdminInfo adminInfo,Integer curPage,Integer pageSize){
+        ConcurrentHashMap<String,Object> result=new ConcurrentHashMap<>();
+        ConcurrentHashMap<String,Object> params=new ConcurrentHashMap<>();
         params.put("name",adminInfo.getName());
-        //根据查询条件,获取管理员记录数
         int totalCount=adminInfoService.count(params);
-        //创建分页对象初始化
         Pager pager=new Pager();
-        pager.setCurPage(curPage);//当前d
-        pager.setRowCount(pageSize);//页数
+        pager.setCurPage(curPage);
+        pager.setPerPageRows(pageSize);
         params.put("pager",pager);
-        //根据查询条件,分页获取管理员列表
-        List<AdminInfo> adminInfos = adminInfoService.getAdminInfo(params);
-        log.info("获取管理员列表:{}",adminInfos.size());
-        if (adminInfos.size()>0){
-            res.put("code",0);
-            res.put("page",curPage);
-            res.put("total",totalCount);
-            res.put("adminInfos",adminInfos);
-            res.put("msg","获取管理员列表成功");
+        List<AdminInfo> adminInfos=adminInfoService.getAdminInfo(params);
+        if(adminInfos.size()>0){
+            result.put("code",0);
+            result.put("adminInfos",adminInfos);
+            result.put("page",curPage);
+            result.put("total",totalCount);
+            result.put("msg","获取管理员列表成功");
         }else {
-            res.put("code",1);
-            res.put("msg","没有管理员记录");
+            result.put("code",1);
+            result.put("msg","没有管理员记录");
         }
-        return res;
+        return result;
     }
+
     // 根据管理员id获取管理员信息
     @UserLoginToken
     @GetMapping("/shop/admininfos/id/{id}")

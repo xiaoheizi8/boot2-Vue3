@@ -1,0 +1,14 @@
+[2024-02-16 16:08:19.709+0800] [main] INFO  cn.ljw.shop.BootShopApplication [55]- Starting BootShopApplication v1.0-SNAPSHOT using Java 1.8.0_352 on DESKTOP-TF8MNJB with PID 15684 (D:\ljwWorkspace\SpringBoot2Learn\前后端分离项目\bootShop\target\shop-1.0-SNAPSHOT.jar started by Ljw in D:\ljwWorkspace\SpringBoot2Learn\前后端分离项目)
+[2024-02-16 16:08:19.719+0800] [main] INFO  cn.ljw.shop.BootShopApplication [631]- No active profile set, falling back to 1 default profile: "default"
+[2024-02-16 16:08:20.770+0800] [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [262]- Multiple Spring Data modules found, entering strict repository configuration mode
+[2024-02-16 16:08:20.774+0800] [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [132]- Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+[2024-02-16 16:08:20.797+0800] [main] INFO  o.s.d.r.c.RepositoryConfigurationDelegate [201]- Finished Spring Data repository scanning in 7 ms. Found 0 Redis repository interfaces.
+[2024-02-16 16:08:22.188+0800] [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer [108]- Tomcat initialized with port(s): 8888 (http)
+[2024-02-16 16:08:22.201+0800] [main] INFO  o.a.coyote.http11.Http11NioProtocol [173]- Initializing ProtocolHandler ["http-nio-8888"]
+[2024-02-16 16:08:22.202+0800] [main] INFO  o.a.catalina.core.StandardService [173]- Starting service [Tomcat]
+[2024-02-16 16:08:22.202+0800] [main] INFO  o.a.catalina.core.StandardEngine [173]- Starting Servlet engine: [Apache Tomcat/9.0.71]
+[2024-02-16 16:08:22.294+0800] [main] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] [173]- Initializing Spring embedded WebApplicationContext
+[2024-02-16 16:08:22.295+0800] [main] INFO  o.s.b.w.s.c.ServletWebServerApplicationContext [292]- Root WebApplicationContext: initialization completed in 2491 ms
+[2024-02-16 16:08:25.799+0800] [main] INFO  o.a.coyote.http11.Http11NioProtocol [173]- Starting ProtocolHandler ["http-nio-8888"]
+[2024-02-16 16:08:25.851+0800] [main] INFO  o.s.b.w.e.tomcat.TomcatWebServer [220]- Tomcat started on port(s): 8888 (http) with context path ''
+[2024-02-16 16:08:25.873+0800] [main] INFO  cn.ljw.shop.BootShopApplication [61]- Started BootShopApplication in 6.815 seconds (JVM running for 7.297)
