@@ -1,0 +1,1 @@
+A backend management system for e-commerce based on SpringBoot2 and Vue3, utilizing MySQL version 5 and ElementPlus as the UI framework. A comprehensive analysis of requirements and DBA design has been conducted.
